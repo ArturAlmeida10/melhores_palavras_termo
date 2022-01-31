@@ -16,21 +16,8 @@ bd <- bd %>%
 # Definindo palavras com apenas 5 letras
 bd2 <- subset(bd, nchar(as.character(palavras)) == 5)
 
-# Padronizando letras minúsculas
-bd2$palavras <- str_to_lower(bd2$palavras)
-
-# Substituindo acentos
-bd2$palavras <- gsub("á", "a", bd2$palavras)
-bd2$palavras <- gsub("ã", "a", bd2$palavras)
-bd2$palavras <- gsub("â", "a", bd2$palavras)
-bd2$palavras <- gsub("é", "e", bd2$palavras)
-bd2$palavras <- gsub("ê", "e", bd2$palavras)
-bd2$palavras <- gsub("í", "i", bd2$palavras)
-bd2$palavras <- gsub("ó", "o", bd2$palavras)
-bd2$palavras <- gsub("ô", "o", bd2$palavras)
-bd2$palavras <- gsub("õ", "o", bd2$palavras)
-bd2$palavras <- gsub("ú", "i", bd2$palavras)
-bd2$palavras <- gsub("ç", "c", bd2$palavras)
+# Padronizando letras minúsculas e retirando acentos
+bd2$palavras <- str_to_lower(abjutils::rm_accent(bd2$palavras))
 
 # Removendo palavras que tornaram-se iguais (roerá e roera por exemplo)
 bd2 <- distinct(bd2)
